@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "declaration": true,
+    "declarationDir": "./types",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "outDir": "./dist",
+    "strict": true
+  }
+}
