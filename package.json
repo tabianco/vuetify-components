@@ -1,6 +1,6 @@
 {
   "name": "@tabianco/vuetify-components",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Vuetify component tweaks for v2",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
