@@ -12,7 +12,7 @@
     "build": "tsc",
     "lint": "eslint --ext .ts --ignore-path .gitignore .",
     "test": "npm run build",
-    "clean": "rimraf packages/*/dist packages/*/types"
+    "clean": "rimraf dist types"
   },
   "repository": {
     "type": "git",
