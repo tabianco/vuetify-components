@@ -24,6 +24,9 @@
     "url": "https://github.com/tabianco/vuetify-components/issues"
   },
   "homepage": "https://github.com/tabianco/vuetify-components#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@tabianco/eslint-config-typescript": "^1.1.0",
     "eslint": "^7.28.0",
