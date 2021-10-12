@@ -1,4 +1,5 @@
 import { inheritComponent } from '@tabianco/vue-inherit-component'
+import type Vue from 'vue'
 import type { Component, DefaultProps } from 'vue/types/options'
 
 declare interface InputProps extends DefaultProps {
@@ -7,12 +8,16 @@ declare interface InputProps extends DefaultProps {
   textonly: Boolean
 }
 
+type InheritComponentOptions = Parameters<typeof inheritComponent>[1]
+type Callable <Type> = (this: typeof Vue, props: InputProps) => Type
+
 declare interface GenInputOptions {
-  computedClass?: (props: InputProps) => any
-  disabledProps?: DefaultProps | ((props: InputProps) => DefaultProps)
-  readonlyProps?: DefaultProps | ((props: InputProps) => DefaultProps)
-  regularProps?: DefaultProps | ((props: InputProps) => DefaultProps)
-  textonlyProps?: DefaultProps | ((props: InputProps) => DefaultProps)
+  computedClass?: InheritComponentOptions['computedClass']
+  disabledProps?: DefaultProps | Callable<DefaultProps>
+  listeners?: InheritComponentOptions['listeners']
+  readonlyProps?: DefaultProps | Callable<DefaultProps>
+  regularProps?: DefaultProps | Callable<DefaultProps>
+  textonlyProps?: DefaultProps | Callable<DefaultProps>
 }
 
 export default function genInput
@@ -34,13 +39,13 @@ export default function genInput
       computedClass: options.computedClass,
 
       computedProps (props) {
-        function callProps (field: keyof GenInputOptions): DefaultProps {
+        const callProps = (field: keyof GenInputOptions): DefaultProps => {
           const value = options[field]
 
           return value === undefined
             ? {}
             : typeof value === 'function'
-              ? value(props)
+              ? (value as Callable<DefaultProps>).call(this, props)
               : value
         }
 
@@ -75,6 +80,8 @@ export default function genInput
           }
         }
       },
+
+      listeners: options.listeners,
 
       props: {
         disabled: {
